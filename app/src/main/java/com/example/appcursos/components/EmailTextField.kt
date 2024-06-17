@@ -13,8 +13,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.appcursos.R
 import com.example.appcursos.ui.theme.gray1
 import com.example.appcursos.ui.theme.gray2
 import com.example.appcursos.ui.theme.secondary
@@ -26,7 +30,11 @@ fun EmailTextField(modifier: Modifier = Modifier){
         value = email,
         onValueChange = {email = it},
         label = {
-            Text(text = "Email")
+            Text(
+                text = "Email",
+                fontFamily = FontFamily(Font(R.font.inter_medium)),
+                fontSize = 16.sp
+            )
         },
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Email

@@ -11,8 +11,12 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.appcursos.R
 import com.example.appcursos.components.EmailTextField
 import com.example.appcursos.components.MyButton
 import com.example.appcursos.components.MyOutlinedButton
@@ -21,8 +25,6 @@ import com.example.appcursos.ui.theme.AppCursosTheme
 
 @Composable
 fun LoginScreen(modifier: Modifier = Modifier) {
-
-
     Scaffold(
         topBar = {TopAppBarLogin()}
     ) {
@@ -38,7 +40,11 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             MyOutlinedButton(Modifier.padding(bottom = 10.dp))
             MyButton()
             TextButton(onClick = { /*TODO*/ }) {
-                Text(text = "Forgot your password?")
+                Text(
+                    text = "Forgot your password?",
+                    fontFamily = FontFamily(Font(R.font.inter_semibold)),
+                    fontSize = 16.sp,
+                )
             }
         }
     }
@@ -48,7 +54,11 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 @Composable
 fun TopAppBarLogin(modifier: Modifier = Modifier){
     CenterAlignedTopAppBar(title = {
-        Text(text = "Log In")
+        Text(
+            text = "Log In",
+            fontFamily = FontFamily(Font(R.font.inter_semibold)),
+            fontSize = 30.sp
+        )
     })
 }
 
