@@ -15,6 +15,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.appcursos.R
@@ -26,7 +28,7 @@ import com.example.appcursos.ui.theme.secondary
 @Composable
 fun PasswordTextField(modifier: Modifier = Modifier){
     var password by remember { mutableStateOf("") }
-    var showPassword by remember { mutableStateOf(true) }
+    var showPassword by remember { mutableStateOf(false) }
     OutlinedTextField(
         value = password,
         onValueChange = {password = it},
@@ -37,6 +39,7 @@ fun PasswordTextField(modifier: Modifier = Modifier){
                 fontSize = 16.sp
             )
         },
+        visualTransformation = if(showPassword) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIcon = {
             Text(
                 text = if(showPassword)  "Hide" else "Show",
