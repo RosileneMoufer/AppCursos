@@ -44,7 +44,7 @@ fun PasswordTextField(modifier: Modifier = Modifier){
             unfocusedTextColor = gray2,
         ),
         shape = RoundedCornerShape(10.dp),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
     )
 }
