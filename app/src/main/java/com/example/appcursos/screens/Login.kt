@@ -2,6 +2,8 @@ package com.example.appcursos.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,23 +31,32 @@ fun LoginScreen(modifier: Modifier = Modifier) {
         topBar = {TopAppBarLogin()}
     ) {
         Column(
-            verticalArrangement = Arrangement.Top,
+            verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
                 .padding(it)
+                .imePadding()
                 .padding(10.dp)
+                .fillMaxHeight()
         ){
-            EmailTextField(Modifier.padding(bottom = 10.dp))
-            PasswordTextField(Modifier.padding(bottom = 40.dp))
-            MyOutlinedButton(Modifier.padding(bottom = 10.dp))
-            MyButton()
-            TextButton(onClick = { /*TODO*/ }) {
-                Text(
-                    text = "Forgot your password?",
-                    fontFamily = FontFamily(Font(R.font.inter_semibold)),
-                    fontSize = 16.sp,
-                )
+            Column {
+                EmailTextField(Modifier.padding(bottom = 10.dp))
+                PasswordTextField(Modifier.padding(bottom = 40.dp))
             }
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                MyOutlinedButton(Modifier.padding(bottom = 10.dp))
+                MyButton()
+                TextButton(onClick = { /*TODO*/ }) {
+                    Text(
+                        text = "Forgot your password?",
+                        fontFamily = FontFamily(Font(R.font.inter_semibold)),
+                        fontSize = 16.sp,
+                    )
+                }
+            }
+
         }
     }
 }
