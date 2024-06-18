@@ -2,11 +2,10 @@ package com.example.appcursos.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import com.example.appcursos.components.Card
 
 @Composable
-fun PostList(navController: NavController) {
+fun CourseList() {
     /*
     if (list.isEmpty()) {
         Text(text = "Ainda não há nada")

@@ -1,5 +1,6 @@
-package com.example.appcursos.components
+package com.example.appcursos.components.menu
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -21,10 +22,12 @@ fun TopMenu(
         titleButtonLeft: String,
         titleButtonRight: String,
         actionButtonColor: Color,
-        titleColor: Color) {
+        titleColor: Color,
+        backgroundColor: Color) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .background(backgroundColor)
             .padding(0.dp, 24.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
