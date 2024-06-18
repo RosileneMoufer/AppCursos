@@ -8,3 +8,5 @@ val tertiary = Color(0xFF000000)
 
 val gray1 = Color(0xFFE8E8E8)
 val gray2 = Color(0xFFBDBDBD)
+val gray3 = Color(0xFFBDBDBD)
+val gray4 = Color(0xFF666666)

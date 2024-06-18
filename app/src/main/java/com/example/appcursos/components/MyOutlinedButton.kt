@@ -15,14 +15,14 @@ import com.example.appcursos.R
 import com.example.appcursos.ui.theme.primary
 
 @Composable
-fun MyOutlinedButton(modifier: Modifier = Modifier){
+fun MyOutlinedButton(text:String, modifier: Modifier = Modifier){
     OutlinedButton(
         onClick = { /*TODO*/ },
         border = BorderStroke(1.dp, color = primary),
         modifier = modifier.fillMaxWidth()
     ) {
         Text(
-            text = "Log In",
+            text = text,
             fontFamily = FontFamily(Font(R.font.inter_semibold)),
             fontSize = 16.sp,
             modifier = Modifier.padding(5.dp)

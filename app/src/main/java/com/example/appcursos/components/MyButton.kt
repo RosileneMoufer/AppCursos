@@ -13,13 +13,13 @@ import androidx.compose.ui.unit.sp
 import com.example.appcursos.R
 
 @Composable
-fun MyButton(modifier:Modifier = Modifier){
+fun MyButton(text:String, modifier:Modifier = Modifier){
     Button(
         onClick = { /*TODO*/ },
         modifier = modifier.fillMaxWidth()
     ) {
         Text(
-            text = "Sign Up",
+            text = text,
             fontFamily = FontFamily(Font(R.font.inter_semibold)),
             fontSize = 16.sp,
             modifier = Modifier.padding(5.dp)
