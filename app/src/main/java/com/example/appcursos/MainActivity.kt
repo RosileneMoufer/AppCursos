@@ -1,5 +1,6 @@
 package com.example.appcursos
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,19 +12,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.appcursos.ui.theme.AppCursosTheme
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             AppCursosTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                Scaffold(modifier = Modifier.fillMaxSize()) {
+
                 }
             }
         }
@@ -31,17 +33,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun MenuBottom() {
+    val navController = rememberNavController()
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AppCursosTheme {
-        Greeting("Android")
+    NavHost(navController = navController, startDestination = "cursos") {
+        composable("cursos") {
+            MainActivity()
+        }
+        composable("perfil") {
+
+        }
+        composable("chat") {
+
+        }
     }
 }
+
