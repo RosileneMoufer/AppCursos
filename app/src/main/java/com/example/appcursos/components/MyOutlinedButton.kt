@@ -15,9 +15,9 @@ import com.example.appcursos.R
 import com.example.appcursos.ui.theme.primary
 
 @Composable
-fun MyOutlinedButton(text:String, modifier: Modifier = Modifier){
+fun MyOutlinedButton(text:String,action:()->Unit = {}, modifier: Modifier = Modifier){
     OutlinedButton(
-        onClick = { /*TODO*/ },
+        onClick = { action() },
         border = BorderStroke(1.dp, color = primary),
         modifier = modifier.fillMaxWidth()
     ) {

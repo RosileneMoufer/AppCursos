@@ -13,9 +13,9 @@ import androidx.compose.ui.unit.sp
 import com.example.appcursos.R
 
 @Composable
-fun MyButton(text:String, modifier:Modifier = Modifier){
+fun MyButton( text:String, action:()->Unit = {}, modifier:Modifier = Modifier){
     Button(
-        onClick = { /*TODO*/ },
+        onClick = { action() },
         modifier = modifier.fillMaxWidth()
     ) {
         Text(

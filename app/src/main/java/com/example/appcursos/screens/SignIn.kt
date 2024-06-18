@@ -1,5 +1,6 @@
 package com.example.appcursos.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,6 +29,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.appcursos.R
 import com.example.appcursos.components.DefaultCheckbox
 import com.example.appcursos.components.DefaultTextField
@@ -40,10 +43,10 @@ import com.example.appcursos.ui.theme.gray3
 import com.example.appcursos.ui.theme.primary
 
 @Composable
-fun SignInScreen(modifier: Modifier = Modifier) {
+fun SignInScreen(navController:NavHostController, modifier: Modifier = Modifier) {
 
     Scaffold(
-        topBar = { TopAppBarSignIn() }
+        topBar = { TopAppBarSignIn(navController) }
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceAround,
@@ -65,7 +68,7 @@ fun SignInScreen(modifier: Modifier = Modifier) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
-                MyButton("Sign Up")
+                MyButton("Sign Up", { navController.navigate("login")})
                 TextButton(onClick = { /*TODO*/ }) {
                     Text(
                         text = "Forgot your password?",
@@ -81,7 +84,7 @@ fun SignInScreen(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarSignIn(modifier: Modifier = Modifier){
+fun TopAppBarSignIn(navController: NavHostController,modifier: Modifier = Modifier){
     CenterAlignedTopAppBar(
         title = {
             Text(
@@ -100,7 +103,9 @@ fun TopAppBarSignIn(modifier: Modifier = Modifier){
             Icon(
                 painter = painterResource(id = R.drawable.close_icon),
                 contentDescription = "Close Icon",
-                modifier = Modifier.padding(start = 10.dp)
+                modifier = Modifier
+                    .padding(start = 10.dp)
+                    .clickable {  navController.popBackStack() }
             )
         },
         actions = {
@@ -116,6 +121,6 @@ fun TopAppBarSignIn(modifier: Modifier = Modifier){
 @Composable
 fun SignInPreview() {
     AppCursosTheme {
-        SignInScreen()
+        SignInScreen(rememberNavController())
     }
 }

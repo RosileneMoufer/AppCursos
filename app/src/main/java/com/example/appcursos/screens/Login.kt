@@ -20,6 +20,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.appcursos.R
 import com.example.appcursos.components.EmailTextField
 import com.example.appcursos.components.MyButton
@@ -28,7 +30,9 @@ import com.example.appcursos.components.PasswordTextField
 import com.example.appcursos.ui.theme.AppCursosTheme
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(
+    navController:NavHostController,
+    modifier: Modifier = Modifier) {
     Scaffold(
         topBar = {TopAppBarLogin()}
     ) {
@@ -48,8 +52,8 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
-                MyOutlinedButton("Log In", Modifier.padding(bottom = 10.dp))
-                MyButton("Sign In")
+                MyOutlinedButton("Log In", modifier = Modifier.padding(bottom = 10.dp))
+                MyButton("Sign In", action = {navController.navigate(route = "signup")})
                 TextButton(onClick = { /*TODO*/ }) {
                     Text(
                         text = "Forgot your password?",
@@ -85,6 +89,6 @@ fun TopAppBarLogin(modifier: Modifier = Modifier){
 @Composable
 fun LoginScreenPreview() {
     AppCursosTheme {
-        LoginScreen()
+        LoginScreen(rememberNavController())
     }
 }

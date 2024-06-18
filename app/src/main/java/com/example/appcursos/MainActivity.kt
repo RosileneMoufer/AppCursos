@@ -11,6 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.appcursos.screens.LoginScreen
+import com.example.appcursos.screens.SignInScreen
 import com.example.appcursos.ui.theme.AppCursosTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +24,29 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AppCursosTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                Nav()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun Nav(){
+    var navController = rememberNavController();
+    NavHost(navController = navController, startDestination = "logIn"){
+        composable(route = "login"){
+            LoginScreen(navController)
+        }
+        composable(route = "signup"){
+            SignInScreen(navController)
+        }
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun PreviewMain() {
     AppCursosTheme {
-        Greeting("Android")
+        Nav()
     }
 }
