@@ -12,6 +12,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
@@ -32,6 +34,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -58,7 +61,9 @@ fun SupportScreen(navController:NavHostController, modifier: Modifier = Modifier
     )
     Scaffold(
         topBar = { TopBarSupport(navController) },
-        bottomBar = { ChatTextField(Modifier.padding(horizontal = 10.dp)) }
+        bottomBar = { ChatTextField(
+            messages,
+            Modifier.padding(horizontal = 10.dp)) }
     ) {
         LazyColumn(
             modifier
@@ -114,7 +119,7 @@ fun SupportScreen(navController:NavHostController, modifier: Modifier = Modifier
 }
 
 @Composable
-private fun ChatTextField(modifier:Modifier = Modifier){
+private fun ChatTextField(messages: ArrayList<Message>,modifier:Modifier = Modifier){
     var message by remember { mutableStateOf("") }
     OutlinedTextField(
         value = message,
@@ -137,13 +142,16 @@ private fun ChatTextField(modifier:Modifier = Modifier){
                     contentScale = ContentScale.Crop,
                 )
             }
-
         },
         shape = RoundedCornerShape(50.dp),
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedBorderColor = gray2,
             unfocusedContainerColor = gray1
         ),
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
+        keyboardActions = KeyboardActions(onSend = {
+            message = ""
+        }),
         modifier = modifier
             .fillMaxWidth()
             .padding(bottom = 10.dp)
