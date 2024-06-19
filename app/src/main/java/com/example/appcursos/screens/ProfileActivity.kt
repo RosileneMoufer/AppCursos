@@ -48,12 +48,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import com.example.appcursos.components.PhotoList
 import com.example.appcursos.components.PostList
+import com.example.appcursos.components.SetSystemBarsColors
 import com.example.appcursos.components.TopMenu
 import com.example.appcursos.ui.theme.AppCursosTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import java.util.Stack
+
 
 class ProfileActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -62,7 +65,7 @@ class ProfileActivity : ComponentActivity() {
 
         setContent {
             AppCursosTheme {
-                SetStatusBarColor(
+                SetSystemBarsColors(
                     setStatusBarColor = Color(0xFF5DB075),
                     setNavigationBarColor = Color(0xFFFFFFFF)
                 )
@@ -78,15 +81,6 @@ class ProfileActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun SetStatusBarColor(setStatusBarColor: Color, setNavigationBarColor: Color) {
-    val systemUiController = rememberSystemUiController()
-    SideEffect {
-        //systemUiController.setSystemBarsColor(color)
-        systemUiController.setStatusBarColor(setStatusBarColor)
-        systemUiController.setNavigationBarColor(setNavigationBarColor)
-    }
-}
 
 @Composable
 fun Body() {
@@ -224,11 +218,5 @@ fun Body() {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun Teste() {
-    Body()
 }
 
