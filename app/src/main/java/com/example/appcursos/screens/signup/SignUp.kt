@@ -1,14 +1,12 @@
-package com.example.appcursos.screens
+package com.example.appcursos.screens.signup
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -16,10 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,6 +23,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.appcursos.R
@@ -36,15 +31,15 @@ import com.example.appcursos.components.DefaultCheckbox
 import com.example.appcursos.components.DefaultTextField
 import com.example.appcursos.components.EmailTextField
 import com.example.appcursos.components.MyButton
-import com.example.appcursos.components.MyOutlinedButton
 import com.example.appcursos.components.PasswordTextField
+import com.example.appcursos.screens.login.LoginViewModel
 import com.example.appcursos.ui.theme.AppCursosTheme
 import com.example.appcursos.ui.theme.gray3
 import com.example.appcursos.ui.theme.primary
 
 @Composable
 fun SignInScreen(navController:NavHostController, modifier: Modifier = Modifier) {
-
+    val loginViewModel = viewModel<LoginViewModel>()
     Scaffold(
         topBar = { TopAppBarSignIn(navController) }
     ) {
@@ -59,8 +54,8 @@ fun SignInScreen(navController:NavHostController, modifier: Modifier = Modifier)
         ){
             Column {
                 DefaultTextField("Nome", Modifier.padding(bottom = 10.dp))
-                EmailTextField(Modifier.padding(bottom = 10.dp))
-                PasswordTextField(Modifier.padding(bottom = 10.dp))
+                EmailTextField(loginViewModel.email,Modifier.padding(bottom = 10.dp))
+                PasswordTextField(loginViewModel.password,Modifier.padding(bottom = 10.dp))
                 DefaultCheckbox(
                     text = "I would like to receive your newsletter and other promotional information."
                 )

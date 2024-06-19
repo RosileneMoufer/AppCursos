@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
-class LoginViewModel: ViewModel() {
+open class LoginViewModel: ViewModel() {
     private val _email = mutableStateOf("")
     private val _password = mutableStateOf("")
 
