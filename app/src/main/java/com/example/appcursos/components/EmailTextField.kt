@@ -8,6 +8,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,17 +19,17 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import com.example.appcursos.R
 import com.example.appcursos.ui.theme.gray1
 import com.example.appcursos.ui.theme.gray2
 import com.example.appcursos.ui.theme.secondary
 
 @Composable
-fun EmailTextField(modifier: Modifier = Modifier){
-    var email by remember { mutableStateOf("") }
+fun EmailTextField(email: MutableState<String>,modifier: Modifier = Modifier){
     OutlinedTextField(
-        value = email,
-        onValueChange = {email = it},
+        value = email.value,
+        onValueChange = {email.value = it},
         label = {
             Text(
                 text = "Email",

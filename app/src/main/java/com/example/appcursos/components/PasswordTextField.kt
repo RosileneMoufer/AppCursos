@@ -8,6 +8,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,6 +20,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.appcursos.R
 import com.example.appcursos.ui.theme.gray1
 import com.example.appcursos.ui.theme.gray2
@@ -26,12 +29,11 @@ import com.example.appcursos.ui.theme.primary
 import com.example.appcursos.ui.theme.secondary
 
 @Composable
-fun PasswordTextField(modifier: Modifier = Modifier){
-    var password by remember { mutableStateOf("") }
-    var showPassword by remember { mutableStateOf(false) }
+fun PasswordTextField(password:MutableState<String>,modifier: Modifier = Modifier){
+    var viewModel = viewModel<PasswordTextFieldViewModel>()
     OutlinedTextField(
-        value = password,
-        onValueChange = {password = it},
+        value = password.value,
+        onValueChange = {password.value = it},
         label = {
             Text(
                 text = "Password",
@@ -39,17 +41,17 @@ fun PasswordTextField(modifier: Modifier = Modifier){
                 fontSize = 16.sp
             )
         },
-        visualTransformation = if(showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+        visualTransformation = if(viewModel.showPassword.value) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIcon = {
             Text(
-                text = if(showPassword)  "Hide" else "Show",
+                text = if(viewModel.showPassword.value)  "Hide" else "Show",
                 color = primary,
                 fontFamily = FontFamily(Font(R.font.inter_semibold)),
                 fontSize = 16.sp,
                 modifier =
-                    Modifier
-                        .padding(end = 15.dp)
-                        .clickable { showPassword = !showPassword }
+                Modifier
+                    .padding(end = 15.dp)
+                    .clickable { viewModel.showPassword.value = !viewModel.showPassword.value }
             ) },
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedContainerColor = secondary,
@@ -60,4 +62,9 @@ fun PasswordTextField(modifier: Modifier = Modifier){
         modifier = modifier
             .fillMaxWidth()
     )
+}
+
+class PasswordTextFieldViewModel: ViewModel(){
+    private var _showPassword = mutableStateOf(false)
+    var showPassword:MutableState<Boolean> = _showPassword
 }
