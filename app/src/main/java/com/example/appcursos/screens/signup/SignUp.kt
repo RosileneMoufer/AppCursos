@@ -38,10 +38,10 @@ import com.example.appcursos.ui.theme.gray3
 import com.example.appcursos.ui.theme.primary
 
 @Composable
-fun SignInScreen(navController:NavHostController, modifier: Modifier = Modifier) {
-    val loginViewModel = viewModel<LoginViewModel>()
+fun SignUpScreen(navController:NavHostController, modifier: Modifier = Modifier) {
+    val signUpViewModel = viewModel<SignUpViewModel>()
     Scaffold(
-        topBar = { TopAppBarSignIn(navController) }
+        topBar = { TopAppBarSignUp(navController) }
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceAround,
@@ -53,11 +53,12 @@ fun SignInScreen(navController:NavHostController, modifier: Modifier = Modifier)
                 .fillMaxHeight()
         ){
             Column {
-                DefaultTextField("Nome", Modifier.padding(bottom = 10.dp))
-                EmailTextField(loginViewModel.email,Modifier.padding(bottom = 10.dp))
-                PasswordTextField(loginViewModel.password,Modifier.padding(bottom = 10.dp))
+                DefaultTextField("Nome",signUpViewModel.name, Modifier.padding(bottom = 10.dp))
+                EmailTextField(signUpViewModel.email,Modifier.padding(bottom = 10.dp))
+                PasswordTextField(signUpViewModel.password,Modifier.padding(bottom = 10.dp))
                 DefaultCheckbox(
-                    text = "I would like to receive your newsletter and other promotional information."
+                    text = "I would like to receive your newsletter and other promotional information.",
+                    signUpViewModel.isChecked
                 )
             }
             Column(
@@ -79,7 +80,7 @@ fun SignInScreen(navController:NavHostController, modifier: Modifier = Modifier)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarSignIn(navController: NavHostController,modifier: Modifier = Modifier){
+fun TopAppBarSignUp(navController: NavHostController, modifier: Modifier = Modifier){
     CenterAlignedTopAppBar(
         title = {
             Text(
@@ -116,6 +117,6 @@ fun TopAppBarSignIn(navController: NavHostController,modifier: Modifier = Modifi
 @Composable
 fun SignInPreview() {
     AppCursosTheme {
-        SignInScreen(rememberNavController())
+        SignUpScreen(rememberNavController())
     }
 }

@@ -6,6 +6,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -16,20 +17,21 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.appcursos.R
 import com.example.appcursos.ui.theme.gray2
 import com.example.appcursos.ui.theme.gray4
 
 @Composable
-fun DefaultCheckbox(text: String, modifier: Modifier = Modifier){
-    var isCheckboxChecked by remember { mutableStateOf(false) }
+fun DefaultCheckbox(text: String, isChecked:MutableState<Boolean>, modifier: Modifier = Modifier){
     Row(
         verticalAlignment = Alignment.Top,
         modifier = modifier
     ){
         Checkbox(
-            checked = isCheckboxChecked,
-            onCheckedChange = {isCheckboxChecked = it},
+            checked = isChecked.value,
+            onCheckedChange = {isChecked.value = it},
             colors = CheckboxDefaults.colors(
                 uncheckedColor = gray2
             ),

@@ -7,6 +7,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,11 +24,10 @@ import com.example.appcursos.ui.theme.gray2
 import com.example.appcursos.ui.theme.secondary
 
 @Composable
-fun DefaultTextField(label:String, modifier: Modifier = Modifier){
-    var text by remember { mutableStateOf("") }
+fun DefaultTextField(label:String, text:MutableState<String>, modifier: Modifier = Modifier){
     OutlinedTextField(
-        value = text,
-        onValueChange = {text = it},
+        value = text.value,
+        onValueChange = {text.value = it},
         label = {
             Text(
                 text = label,
