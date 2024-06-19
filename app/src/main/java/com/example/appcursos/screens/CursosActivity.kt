@@ -38,11 +38,12 @@ class CursosActivity : ComponentActivity() {
                             .padding(16.dp, 0.dp)
                     ) {
                         TopMenu(
-                            "Cursos",
-                            "Logout",
-                            "Filtro",
-                            Color(0xFF5DB075),
-                            Color(0XFF000000)
+                            title = "Cursos",
+                            titleButtonLeft = "Logout",
+                            titleButtonRight = "Filtro",
+                            actionButtonColor = Color(0xFF5DB075),
+                            titleColor = Color(0XFF000000),
+                            backgroundColor = Color(0xFF5DB075)
                         )
                         SearchInput()
                         Column(

@@ -3,6 +3,7 @@ package com.example.appcursos.screens
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
@@ -18,15 +19,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,22 +52,39 @@ import com.example.appcursos.components.PhotoList
 import com.example.appcursos.components.PostList
 import com.example.appcursos.components.TopMenu
 import com.example.appcursos.ui.theme.AppCursosTheme
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import java.util.Stack
 
 class ProfileActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
         setContent {
             AppCursosTheme {
+                SetStatusBarColor(
+                    setStatusBarColor = Color(0xFF5DB075),
+                    setNavigationBarColor = Color(0xFFFFFFFF)
+                )
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = Color(0xFF5DB075)
+                    color = Color(0xFFFFFFFF)
                 ) {
                     Body()
                 }
             }
         }
+    }
+}
+
+@Composable
+fun SetStatusBarColor(setStatusBarColor: Color, setNavigationBarColor: Color) {
+    val systemUiController = rememberSystemUiController()
+    SideEffect {
+        //systemUiController.setSystemBarsColor(color)
+        systemUiController.setStatusBarColor(setStatusBarColor)
+        systemUiController.setNavigationBarColor(setNavigationBarColor)
     }
 }
 
@@ -71,20 +95,40 @@ fun Body() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .verticalScroll(rememberScrollState())
     ) {
-        TopMenu(
-            title = "Profile",
-            titleButtonLeft = "Settings",
-            titleButtonRight = "Logout",
-            actionButtonColor = Color(0xFFFFFFFF),
-            titleColor = Color(0xFFFFFFFF))
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(2F)
                 .background(Color(0xFF5DB075))
+                .padding(16.dp, 0.dp)
         ) {
-            // foto
+            TopMenu(
+                title = "Profile",
+                titleButtonLeft = "Settings",
+                titleButtonRight = "Logout",
+                actionButtonColor = Color(0xFFFFFFFF),
+                titleColor = Color(0xFFFFFFFF),
+                backgroundColor = Color(0xFF5DB075))
+            Box(
+                modifier = Modifier
+                    .background(Color(0xFF5DB075))
+                    .aspectRatio(2.2F),
+                contentAlignment = Alignment.Center
+            ) {
+                Box(modifier = Modifier
+                    .clip(RoundedCornerShape(50))
+                    .background(Color.Gray)
+                    .border(
+                        border = BorderStroke(8.dp, Color.White),
+                        shape = RoundedCornerShape(50)
+                    )
+                    .width(160.dp)
+                    .height(160.dp)
+                    //.align(Alignment.BottomCenter)
+                ){
+                    // image
+                }
+            }
         }
         Column(
             modifier = Modifier
@@ -92,7 +136,7 @@ fun Body() {
                 .background(Color(0xFFFFFFFF))
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Text(
                 text = "User name",
@@ -121,7 +165,7 @@ fun Body() {
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(50))
                     .border(
-                        border = BorderStroke(1.dp,Color(0xFFBDBDBD)),
+                        border = BorderStroke(1.dp, Color(0xFFBDBDBD)),
                         shape = RoundedCornerShape(50)
                     )
                     .background(Color(0xFFF6F6F6))
