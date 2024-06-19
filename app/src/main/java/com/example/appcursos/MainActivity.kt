@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.appcursos.screens.login.LoginScreen
 import com.example.appcursos.screens.signup.SignUpScreen
+import com.example.appcursos.screens.support.SupportScreen
 import com.example.appcursos.ui.theme.AppCursosTheme
 
 class MainActivity : ComponentActivity() {
@@ -34,6 +35,9 @@ fun Nav(){
         }
         composable(route = "signup"){
             SignUpScreen(navController)
+        }
+        composable(route="support"){
+            SupportScreen(navController = navController)
         }
     }
 }

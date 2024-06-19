@@ -1,15 +1,19 @@
-package com.example.appcursos.screens
+package com.example.appcursos.screens.support
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -38,6 +42,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.appcursos.R
@@ -46,80 +52,77 @@ import com.example.appcursos.ui.theme.gray2
 import com.example.appcursos.ui.theme.primary
 
 enum class UserType{ME, SUPPORT}
-class Message(val message:String, val sender:UserType)
+class Message(val message:String, val sender: UserType)
 
 @Composable
 fun SupportScreen(navController:NavHostController, modifier: Modifier = Modifier){
-    var messages = arrayListOf(
-        Message("Olá, bom dia. Você está falando com o supporte.", UserType.SUPPORT),
-        Message("Olá, estou tendo um problema para acessar o curso X. Pode me ajudar?", UserType.ME),
-        Message("Claro! Mas você poderia ser um pouco mais específico?", UserType.SUPPORT),
-        Message("Claro! Comprei um curso faz uma semana, mas ele ainda não está aparecendo nos meus cursos.", UserType.ME),
-        Message("Vou verificar, só um momento.", UserType.SUPPORT),
-        Message("Problema resolvido! Pedimos perdão pelo transtorno", UserType.SUPPORT),
-        Message("Gostaria de ajuda com algo mais?", UserType.SUPPORT)
-    )
+    val supportViewModel = viewModel<SupportViewModel>()
     Scaffold(
         topBar = { TopBarSupport(navController) },
         bottomBar = { ChatTextField(
-            messages,
-            Modifier.padding(horizontal = 10.dp)) }
+            {supportViewModel.addMessage(it)},
+            Modifier.padding(horizontal = 10.dp)) },
+        modifier = modifier.imePadding()
     ) {
-        LazyColumn(
-            modifier
-                .padding(it)
-                .padding(horizontal = 10.dp)
-                .padding(top = 20.dp)
-        ) {
-            items(items = messages, itemContent = {message ->
-                when(message.sender){
-                    UserType.ME -> {
-                        Row(
-                            horizontalArrangement = Arrangement.End,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 10.dp)
-                            ) {
-                            Text(
-                                text = message.message,
-                                color = Color.White,
-                                fontFamily = FontFamily(Font(R.font.inter)),
-                                fontSize = 14.sp,
-                                modifier = Modifier
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .background(primary)
-                                    .padding(10.dp)
-                                    .width(200.dp)
-                            )
-                        }
-                    }
-                    UserType.SUPPORT -> {
-                        Row(
-                            horizontalArrangement = Arrangement.Start,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 10.dp)
-                        ){
-                            Text(
-                                text = message.message,
-                                fontFamily = FontFamily(Font(R.font.inter)),
-                                fontSize = 14.sp,
-                                modifier = Modifier
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .background(gray1)
-                                    .padding(10.dp)
-                                    .width(200.dp)
-                            )
-                        }
-                    }
-                }
-            })
-        }
+        Body(messages = supportViewModel.messages, Modifier.padding(it))
     }
 }
 
 @Composable
-private fun ChatTextField(messages: ArrayList<Message>,modifier:Modifier = Modifier){
+private fun Body(messages:MutableList<Message>, modifier: Modifier = Modifier){
+    LazyColumn(
+        modifier = modifier
+            .padding(horizontal = 10.dp)
+            .padding(top = 20.dp)
+    ) {
+        items(items = messages, itemContent = {message ->
+            when(message.sender){
+                UserType.ME -> {
+                    Row(
+                        horizontalArrangement = Arrangement.End,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 10.dp)
+                    ) {
+                        Text(
+                            text = message.message,
+                            color = Color.White,
+                            fontFamily = FontFamily(Font(R.font.inter)),
+                            fontSize = 14.sp,
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(primary)
+                                .padding(10.dp)
+                                .width(200.dp)
+                        )
+                    }
+                }
+                UserType.SUPPORT -> {
+                    Row(
+                        horizontalArrangement = Arrangement.Start,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 10.dp)
+                    ){
+                        Text(
+                            text = message.message,
+                            fontFamily = FontFamily(Font(R.font.inter)),
+                            fontSize = 14.sp,
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(gray1)
+                                .padding(10.dp)
+                                .width(200.dp)
+                        )
+                    }
+                }
+            }
+        })
+    }
+}
+
+@Composable
+private fun ChatTextField(action: (String)->Unit, modifier:Modifier = Modifier){
     var message by remember { mutableStateOf("") }
     OutlinedTextField(
         value = message,
@@ -135,6 +138,10 @@ private fun ChatTextField(messages: ArrayList<Message>,modifier:Modifier = Modif
                     .clip(CircleShape)
                     .background(primary)
                     .padding(10.dp)
+                    .clickable {
+                        action(message)
+                        message = ""
+                    }
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.send_icon),
@@ -150,6 +157,7 @@ private fun ChatTextField(messages: ArrayList<Message>,modifier:Modifier = Modif
         ),
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
         keyboardActions = KeyboardActions(onSend = {
+            action(message)
             message = ""
         }),
         modifier = modifier

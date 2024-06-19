@@ -58,7 +58,7 @@ fun LoginScreen(
             ){
                 MyOutlinedButton("Log In", modifier = Modifier.padding(bottom = 10.dp))
                 MyButton("Sign In", action = {navController.navigate(route = "signup")})
-                TextButton(onClick = { /*TODO*/ }) {
+                TextButton(onClick = { navController.navigate(route = "support")}) {
                     Text(
                         text = "Forgot your password?",
                         fontFamily = FontFamily(Font(R.font.inter_semibold)),
