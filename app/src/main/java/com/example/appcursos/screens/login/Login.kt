@@ -1,4 +1,4 @@
-package com.example.appcursos.screens
+package com.example.appcursos.screens.login
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,7 +34,7 @@ fun LoginScreen(
     navController:NavHostController,
     modifier: Modifier = Modifier) {
     Scaffold(
-        topBar = {TopAppBarLogin()}
+        topBar = { TopAppBarLogin() }
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceAround,
