@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun PostList(list: List<String>) {
+fun PostList() {
     /*
     if (list.isEmpty()) {
         Text(text = "Ainda não há nada")
