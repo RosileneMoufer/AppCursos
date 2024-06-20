@@ -13,10 +13,13 @@ import androidx.navigation.NavController
 fun BottomAppBarComponent(navController : NavController) {
     BottomAppBar(
         actions = {
-            IconButton(onClick = { navController.navigate("cursos") }) {
+            IconButton(onClick = { navController.navigate("courses") }) {
                 Icon(Icons.Filled.Home, contentDescription = "Localized description")
             }
-            IconButton(onClick = { navController.navigate("chat") }) {
+            IconButton(onClick = { navController.navigate("profile") }) {
+                Icon(Icons.Filled.Check, contentDescription = "Localized description")
+            }
+            IconButton(onClick = { navController.navigate("support") }) {
                 Icon(Icons.Filled.Check, contentDescription = "Localized description")
             }
         },

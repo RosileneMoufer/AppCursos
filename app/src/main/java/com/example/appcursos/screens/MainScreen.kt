@@ -47,6 +47,6 @@ fun NavBottomBarController(navController: NavHostController) {
         composable("classes") { ClassesScreen() }
         composable("profile") { ProfileScreen() }
         composable("certificate") { CertificateScreen() }
-        composable("chat") { Support() }
+        composable("support") { Support() }
     }
 }
