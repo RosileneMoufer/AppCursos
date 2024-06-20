@@ -11,7 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.appcursos.components.menu.BottomAppBarComponent
-import com.example.appcursos.screens.support.Support
+import com.example.appcursos.screens.support.SupportScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,6 +36,6 @@ fun NavBottomBarController(navController: NavHostController) {
         composable("classes") { ClassesScreen() }
         composable("profile") { ProfileScreen() }
         composable("certificate") { CertificateScreen() }
-        composable("support") { Support() }
+        composable("support") { SupportScreen(navController) }
     }
 }

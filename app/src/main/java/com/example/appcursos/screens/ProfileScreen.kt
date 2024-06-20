@@ -188,7 +188,6 @@ fun Body() {
             Spacer(modifier = Modifier.height(16.dp))
 
             if (isPostsActive) {
-                PostList()
             } else {
                 PhotoList()
             }
