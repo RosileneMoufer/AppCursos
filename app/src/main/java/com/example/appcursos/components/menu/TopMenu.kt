@@ -1,4 +1,4 @@
-package com.example.appcursos.components
+package com.example.appcursos.components.menu
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

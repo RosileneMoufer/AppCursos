@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.sp
 import com.example.appcursos.components.PhotoList
 import com.example.appcursos.components.PostList
 import com.example.appcursos.components.SetSystemBarsColors
-import com.example.appcursos.components.TopMenu
+import com.example.appcursos.components.menu.TopMenu
 
 @Composable
 fun ProfileScreen() {

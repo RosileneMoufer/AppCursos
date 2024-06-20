@@ -1,4 +1,4 @@
-package com.example.appcursos.components
+package com.example.appcursos.components.menu
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check

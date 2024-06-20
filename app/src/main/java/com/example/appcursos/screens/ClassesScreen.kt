@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.appcursos.components.PhotoList
 import com.example.appcursos.components.SearchInput
-import com.example.appcursos.components.TopMenu
+import com.example.appcursos.components.menu.TopMenu
 
 @Composable
 fun ClassesScreen() {
@@ -33,7 +33,7 @@ fun ClassesScreen() {
                 titleButtonRight = "Filtro",
                 actionButtonColor = Color(0xFF5DB075),
                 titleColor = Color(0XFF000000),
-                backgroundColor = Color(0xFF5DB075)
+                backgroundColor = Color(0xFFFFFFFF)
             )
             SearchInput()
             Column(
