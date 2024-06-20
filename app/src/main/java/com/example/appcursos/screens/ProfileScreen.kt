@@ -35,13 +35,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.example.appcursos.components.CourseList
 import com.example.appcursos.components.PhotoList
 import com.example.appcursos.components.PostList
 import com.example.appcursos.components.SetSystemBarsColors
 import com.example.appcursos.components.menu.TopMenu
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(navController:NavHostController, logOutAction: ()->Unit) {
     SetSystemBarsColors(
         setStatusBarColor = Color(0xFF5DB075),
         setNavigationBarColor = Color(0xFFFFFFFF)
@@ -51,13 +53,13 @@ fun ProfileScreen() {
         modifier = Modifier.fillMaxSize(),
         color = Color(0xFFFFFFFF)
     ) {
-        Body()
+        Body(navController, logOutAction)
     }
 }
 
 
 @Composable
-fun Body() {
+fun Body(navController: NavHostController, logOutAction: ()->Unit) {
     var isPostsActive by remember { mutableStateOf(true) }
 
     Column(
@@ -74,6 +76,7 @@ fun Body() {
                 title = "Profile",
                 titleButtonLeft = "Settings",
                 titleButtonRight = "Logout",
+                actionButtonRight = logOutAction,
                 actionButtonColor = Color(0xFFFFFFFF),
                 titleColor = Color(0xFFFFFFFF),
                 backgroundColor = Color(0xFF5DB075)
@@ -188,6 +191,7 @@ fun Body() {
             Spacer(modifier = Modifier.height(16.dp))
 
             if (isPostsActive) {
+                CourseList()
             } else {
                 PhotoList()
             }

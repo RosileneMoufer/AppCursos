@@ -9,9 +9,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.appcursos.screens.MainScreen
 import com.example.appcursos.screens.login.LoginScreen
 import com.example.appcursos.screens.signup.SignUpScreen
-import com.example.appcursos.screens.support.SupportScreen
 import com.example.appcursos.ui.theme.AppCursosTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Nav(){
-    var navController = rememberNavController();
+    val navController = rememberNavController();
     NavHost(navController = navController, startDestination = "logIn"){
         composable(route = "login"){
             LoginScreen(navController)
@@ -36,8 +36,8 @@ fun Nav(){
         composable(route = "signup"){
             SignUpScreen(navController)
         }
-        composable(route="support"){
-            SupportScreen(navController = navController)
+        composable(route="main"){
+            MainScreen({navController.popBackStack()})
         }
     }
 }

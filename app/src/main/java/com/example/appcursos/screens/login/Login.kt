@@ -56,9 +56,9 @@ fun LoginScreen(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
-                MyOutlinedButton("Log In", modifier = Modifier.padding(bottom = 10.dp))
+                MyOutlinedButton("Log In", action = {navController.navigate("main")}, modifier = Modifier.padding(bottom = 10.dp))
                 MyButton("Sign In", action = {navController.navigate(route = "signup")})
-                TextButton(onClick = { navController.navigate(route = "support")}) {
+                TextButton(onClick = { }) {
                     Text(
                         text = "Forgot your password?",
                         fontFamily = FontFamily(Font(R.font.inter_semibold)),

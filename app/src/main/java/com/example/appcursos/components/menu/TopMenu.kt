@@ -20,7 +20,9 @@ import androidx.compose.ui.unit.sp
 fun TopMenu(
         title: String,
         titleButtonLeft: String,
+        actionButtonLeft:()->Unit = {},
         titleButtonRight: String,
+        actionButtonRight:()->Unit = {},
         actionButtonColor: Color,
         titleColor: Color,
         backgroundColor: Color) {
@@ -39,7 +41,7 @@ fun TopMenu(
                 fontWeight = FontWeight.W500,
                 fontSize = 16.sp,
             ),
-            modifier = Modifier.clickable {  }
+            modifier = Modifier.clickable {  actionButtonLeft() }
         )
         Text(
             text = title,
@@ -56,7 +58,7 @@ fun TopMenu(
                 fontWeight = FontWeight.W500,
                 fontSize = 16.sp,
             ),
-            modifier = Modifier.clickable {  }
+            modifier = Modifier.clickable { actionButtonRight() }
         )
     }
 }

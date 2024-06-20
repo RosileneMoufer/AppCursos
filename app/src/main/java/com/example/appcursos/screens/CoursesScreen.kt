@@ -18,7 +18,7 @@ import com.example.appcursos.components.SearchInput
 import com.example.appcursos.components.menu.TopMenu
 
 @Composable
-fun CoursesScreen(navController: NavController) {
+fun CoursesScreen(navController: NavController, logOutAction: ()->Unit) {
     // A surface container using the 'background' color from the theme
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -32,6 +32,7 @@ fun CoursesScreen(navController: NavController) {
             TopMenu(
                 title = "Cursos",
                 titleButtonLeft = "Logout",
+                actionButtonLeft = logOutAction,
                 titleButtonRight = "Filtro",
                 actionButtonColor = Color(0xFF5DB075),
                 titleColor = Color(0XFF000000),

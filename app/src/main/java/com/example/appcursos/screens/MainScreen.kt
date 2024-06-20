@@ -15,26 +15,26 @@ import com.example.appcursos.screens.support.SupportScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(logOutAction: ()->Unit) {
     val navController = rememberNavController()
 
     Scaffold(
         bottomBar = { BottomAppBarComponent(navController) },
         content = { padding ->
             Box(modifier = Modifier.padding(padding)) {
-                NavBottomBarController(navController = navController)
+                NavBottomBarController(navController = navController, logOutAction)
             }
         },
     )
 }
 
 @Composable
-fun NavBottomBarController(navController: NavHostController) {
+fun NavBottomBarController(navController: NavHostController, logOutAction: ()->Unit) {
 
     NavHost(navController = navController, startDestination = "courses") {
-        composable("courses") { CoursesScreen(navController) }
+        composable("courses") { CoursesScreen(navController, logOutAction) }
         composable("classes") { ClassesScreen() }
-        composable("profile") { ProfileScreen() }
+        composable("profile") { ProfileScreen(navController, logOutAction) }
         composable("certificate") { CertificateScreen() }
         composable("support") { SupportScreen(navController) }
     }
