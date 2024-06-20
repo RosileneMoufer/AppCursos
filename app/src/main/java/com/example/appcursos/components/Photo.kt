@@ -1,5 +1,6 @@
 package com.example.appcursos.components
 
+import android.provider.ContactsContract.Contacts.Photo
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Post(title: String, date: String, description: String) {
+fun Photo(title: String, date: String, description: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()

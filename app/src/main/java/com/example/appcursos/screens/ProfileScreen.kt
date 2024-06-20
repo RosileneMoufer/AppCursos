@@ -3,15 +3,19 @@ package com.example.appcursos.screens
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -19,6 +23,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,81 +35,69 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.appcursos.components.ImageProfile
 import com.example.appcursos.components.PhotoList
 import com.example.appcursos.components.PostList
 import com.example.appcursos.components.SetSystemBarsColors
 import com.example.appcursos.components.menu.TopMenu
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(navController: NavController) {
     SetSystemBarsColors(
         setStatusBarColor = Color(0xFF5DB075),
         setNavigationBarColor = Color(0xFFFFFFFF)
     )
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = Color(0xFFFFFFFF)
-    ) {
-        Body()
+    Scaffold(
+
+        topBar = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color(0xFF5DB075))
+                    .padding(16.dp, 0.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                TopMenu(
+                    title = "Profile",
+                    titleButtonLeft = "Settings",
+                    titleButtonRight = "Logout",
+                    actionButtonColor = Color(0xFFFFFFFF),
+                    titleColor = Color(0xFFFFFFFF),
+                    backgroundColor = Color(0xFF5DB075)
+                )
+                ImageProfile()
+            }
+        }
+    ) { innerPadding ->
+        Body(innerPadding)
     }
 }
 
 
 @Composable
-fun Body() {
+fun Body(innerPadding: PaddingValues) {
     var isPostsActive by remember { mutableStateOf(true) }
 
     Column(
         modifier = Modifier
+            .padding(innerPadding)
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
     ) {
-        Column(
-            modifier = Modifier
-                .background(Color(0xFF5DB075))
-                .padding(16.dp, 0.dp)
-        ) {
-            TopMenu(
-                title = "Profile",
-                titleButtonLeft = "Settings",
-                titleButtonRight = "Logout",
-                actionButtonColor = Color(0xFFFFFFFF),
-                titleColor = Color(0xFFFFFFFF),
-                backgroundColor = Color(0xFF5DB075)
-            )
-            Box(
-                modifier = Modifier
-                    .background(Color(0xFF5DB075))
-                    .aspectRatio(2.2F),
-                contentAlignment = Alignment.Center
-            ) {
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(50))
-                        .background(Color.Gray)
-                        .border(
-                            border = BorderStroke(8.dp, Color.White),
-                            shape = RoundedCornerShape(50)
-                        )
-                        .width(160.dp)
-                        .height(160.dp)
-                    //.align(Alignment.BottomCenter)
-                ) {
-                    // image
-                }
-            }
-        }
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color(0xFFFFFFFF))
-                .padding(16.dp),
+                .padding(start = 16.dp, end = 16.dp, top = 48.dp, bottom = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {

@@ -1,6 +1,7 @@
 package com.example.appcursos.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,11 +23,16 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Composable
-fun Card(title: String, date: String, description: String) {
+fun Post(title: String, date: String, description: String, navController: NavController) {
     Row(
-        modifier = Modifier.padding(0.dp, 8.dp),
+        modifier = Modifier
+            .padding(0.dp, 8.dp)
+            .clickable {
+                navController.navigate("classes")
+            },
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.Top
     ) {

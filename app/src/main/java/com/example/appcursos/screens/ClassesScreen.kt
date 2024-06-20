@@ -11,12 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.appcursos.components.PhotoList
 import com.example.appcursos.components.SearchInput
 import com.example.appcursos.components.menu.TopMenu
 
 @Composable
-fun ClassesScreen() {
+fun ClassesScreen(navController: NavController) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background,

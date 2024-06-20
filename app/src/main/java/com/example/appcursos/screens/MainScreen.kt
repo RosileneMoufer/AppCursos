@@ -30,12 +30,11 @@ fun MainScreen() {
 
 @Composable
 fun NavBottomBarController(navController: NavHostController) {
-
     NavHost(navController = navController, startDestination = "courses") {
         composable("courses") { CoursesScreen(navController) }
-        composable("classes") { ClassesScreen() }
-        composable("profile") { ProfileScreen() }
-        composable("certificate") { CertificateScreen() }
+        composable("classes") { ClassesScreen(navController) }
+        composable("profile") { ProfileScreen(navController) }
+        composable("certificate") { CertificateScreen(navController) }
         composable("support") { Support() }
     }
 }

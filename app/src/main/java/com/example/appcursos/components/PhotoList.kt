@@ -8,9 +8,9 @@ import com.example.appcursos.components.Post
 @Composable
 fun PhotoList() {
     Column {
-        Post("Java", "8m ago","description: String")
-        Post("Python", "8m ago", "description: String")
-        Post("Go", "8m ago", "description: String")
-        Post("C#", "8m ago", "description: String")
+        Photo("Java", "8m ago","description: String")
+        Photo("Python", "8m ago", "description: String")
+        Photo("Go", "8m ago", "description: String")
+        Photo("C#", "8m ago", "description: String")
     }
 }
