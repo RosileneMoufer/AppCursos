@@ -36,6 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.appcursos.components.BottomSheet
 import com.example.appcursos.components.CourseList
 import com.example.appcursos.components.PhotoList
 import com.example.appcursos.components.PostList
@@ -61,7 +62,7 @@ fun ProfileScreen(navController:NavHostController, logOutAction: ()->Unit) {
 @Composable
 fun Body(navController: NavHostController, logOutAction: ()->Unit) {
     var isPostsActive by remember { mutableStateOf(true) }
-
+    var isModalOpen by remember { mutableStateOf(true) }
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -195,7 +196,10 @@ fun Body(navController: NavHostController, logOutAction: ()->Unit) {
             } else {
                 PhotoList()
             }
+
         }
+        if(isModalOpen)
+            BottomSheet({isModalOpen = false})
     }
 }
 
