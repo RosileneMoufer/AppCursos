@@ -2,6 +2,9 @@ package com.example.appcursos.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -11,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.appcursos.components.menu.BottomAppBarComponent
+import com.example.appcursos.components.menu.ItemNavigationBar
 import com.example.appcursos.screens.classes.ClassesScreen
 import com.example.appcursos.screens.profile.ProfileScreen
 import com.example.appcursos.screens.support.SupportScreen
@@ -19,9 +23,14 @@ import com.example.appcursos.screens.support.SupportScreen
 @Composable
 fun MainScreen(logOutAction: ()->Unit) {
     val navController = rememberNavController()
+    val itens = listOf<ItemNavigationBar>(
+        ItemNavigationBar("Cursos", Icons.Filled.Home, {navController.navigate("courses")}),
+        ItemNavigationBar("Perfil", Icons.Filled.Home, {navController.navigate("profile")}),
+        ItemNavigationBar("Suporte", Icons.Filled.Done, {navController.navigate("support")})
+    )
 
     Scaffold(
-        bottomBar = { BottomAppBarComponent(navController) },
+        bottomBar = { BottomAppBarComponent(itens) },
         content = { padding ->
             Box(modifier = Modifier.padding(padding)) {
                 NavBottomBarController(navController = navController, logOutAction)

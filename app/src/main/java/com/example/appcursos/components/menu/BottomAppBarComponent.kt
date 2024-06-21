@@ -20,10 +20,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
 
+class ItemNavigationBar(val nome:String, val icon:ImageVector, val action: ()->Unit)
+
 @Composable
-fun BottomAppBarComponent(navController : NavController) {
+fun BottomAppBarComponent(itens: List<ItemNavigationBar>) {
     /*
     BottomAppBar(
         actions = {
@@ -42,17 +45,14 @@ fun BottomAppBarComponent(navController : NavController) {
      */
 
     var selectedItem by remember { mutableIntStateOf(0) }
-    val items = listOf("Cursos", "Perfil", "Suporte")
-    val icons = listOf(Icons.Filled.Home, Icons.Filled.AccountCircle, Icons.Filled.Done)
-    val routes = listOf("courses", "profile", "support")
 
     NavigationBar(containerColor = Color.White, contentColor = Color(0xFF5DB075)) {
-        items.forEachIndexed { index, item ->
+        itens.forEachIndexed { index, item ->
             NavigationBarItem(
-                icon = { Icon(icons[index], contentDescription = item) },
-                label = { Text(item) },
+                icon = { Icon(item.icon, contentDescription = item.nome) },
+                label = { Text(item.nome) },
                 selected = selectedItem == index,
-                onClick = { selectedItem = index; navController.navigate(routes[index]) },
+                onClick = { selectedItem = index; item.action() },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = Color(0xFF5DB075),
                     selectedTextColor = Color(0xFF5DB075),
