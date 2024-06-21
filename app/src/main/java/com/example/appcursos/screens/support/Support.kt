@@ -47,6 +47,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.appcursos.R
+import com.example.appcursos.components.menu.TopMenu
 import com.example.appcursos.ui.theme.gray1
 import com.example.appcursos.ui.theme.gray2
 import com.example.appcursos.ui.theme.primary
@@ -58,11 +59,19 @@ class Message(val message:String, val sender: UserType)
 fun SupportScreen(navController:NavHostController, modifier: Modifier = Modifier){
     val supportViewModel = viewModel<SupportViewModel>()
     Scaffold(
-        topBar = { TopBarSupport(navController) },
+        //topBar = { TopBarSupport(navController) },
+        Modifier.background(Color.White).padding(16.dp),
+        topBar = { TopMenu(
+            title = "Suporte",
+            titleButtonLeft = "Back",
+            actionButtonLeft = { navController.popBackStack() },
+            titleButtonRight = "Filter",
+            actionButtonColor = primary,
+            titleColor = Color.Black,
+            backgroundColor = Color.White
+        ) },
         bottomBar = { ChatTextField(
-            {supportViewModel.addMessage(it)},
-            Modifier.padding(horizontal = 10.dp)) },
-        modifier = modifier.imePadding()
+            {supportViewModel.addMessage(it)})},
     ) {
         Body(messages = supportViewModel.messages, Modifier.padding(it))
     }
@@ -72,8 +81,7 @@ fun SupportScreen(navController:NavHostController, modifier: Modifier = Modifier
 private fun Body(messages:MutableList<Message>, modifier: Modifier = Modifier){
     LazyColumn(
         modifier = modifier
-            .padding(horizontal = 10.dp)
-            .padding(top = 20.dp)
+            .padding(top = 8.dp)
     ) {
         items(items = messages, itemContent = {message ->
             when(message.sender){
@@ -122,8 +130,9 @@ private fun Body(messages:MutableList<Message>, modifier: Modifier = Modifier){
 }
 
 @Composable
-private fun ChatTextField(action: (String)->Unit, modifier:Modifier = Modifier){
+private fun ChatTextField(action: (String)->Unit, ){
     var message by remember { mutableStateOf("") }
+
     OutlinedTextField(
         value = message,
         onValueChange = {message = it},
@@ -133,11 +142,9 @@ private fun ChatTextField(action: (String)->Unit, modifier:Modifier = Modifier){
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
-                    .padding(end = 10.dp)
                     .size(36.dp)
                     .clip(CircleShape)
                     .background(primary)
-                    .padding(10.dp)
                     .clickable {
                         action(message)
                         message = ""
@@ -160,12 +167,12 @@ private fun ChatTextField(action: (String)->Unit, modifier:Modifier = Modifier){
             action(message)
             message = ""
         }),
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 10.dp)
     )
 }
 
+/*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TopBarSupport(navController: NavHostController, modifier:Modifier = Modifier){
@@ -201,6 +208,8 @@ private fun TopBarSupport(navController: NavHostController, modifier:Modifier = 
         }
     )
 }
+
+ */
 
 @Preview(showBackground = true)
 @Composable

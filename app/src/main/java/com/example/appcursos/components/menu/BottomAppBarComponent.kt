@@ -21,38 +21,30 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.appcursos.screens.login.LoginViewModel
 
 class ItemNavigationBar(val nome:String, val icon:ImageVector, val action: ()->Unit)
 
 @Composable
-fun BottomAppBarComponent(itens: List<ItemNavigationBar>) {
-    /*
-    BottomAppBar(
-        actions = {
-            IconButton(onClick = { navController.navigate("courses") }) {
-                Icon(Icons.Filled.Home, contentDescription = "Localized description")
-            }
-            IconButton(onClick = { navController.navigate("profile") }) {
-                Icon(Icons.Filled.Check, contentDescription = "Localized description")
-            }
-            IconButton(onClick = { navController.navigate("support") }) {
-                Icon(Icons.Filled.Check, contentDescription = "Localized description")
-            }
-        },
+fun BottomAppBarComponent(bottomMenuViewModel : BottomMenuViewModel, navController : NavController) {
+
+    val items = listOf(
+        ItemNavigationBar("Cursos", Icons.Filled.Home) { navController.navigate("courses") },
+        ItemNavigationBar("Perfil", Icons.Filled.Home) { navController.navigate("profile") },
+        ItemNavigationBar("Suporte", Icons.Filled.Done) { navController.navigate("support") }
     )
 
-     */
-
-    var selectedItem by remember { mutableIntStateOf(0) }
-
     NavigationBar(containerColor = Color.White, contentColor = Color(0xFF5DB075)) {
-        itens.forEachIndexed { index, item ->
+        items.forEachIndexed { index, item ->
             NavigationBarItem(
                 icon = { Icon(item.icon, contentDescription = item.nome) },
                 label = { Text(item.nome) },
-                selected = selectedItem == index,
-                onClick = { selectedItem = index; item.action() },
+                selected = bottomMenuViewModel.itemSelected.value == index,
+                onClick = { if (item.nome != "Suporte") {
+                    bottomMenuViewModel.itemSelected.value = index
+                }; item.action() },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = Color(0xFF5DB075),
                     selectedTextColor = Color(0xFF5DB075),

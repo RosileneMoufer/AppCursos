@@ -1,5 +1,6 @@
 package com.example.appcursos.screens.classes
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,15 +25,18 @@ import androidx.navigation.NavController
 import com.example.appcursos.components.CheckBoxClasses
 import com.example.appcursos.components.PhotoList
 import com.example.appcursos.components.SearchInput
+import com.example.appcursos.components.menu.BottomAppBarComponent
+import com.example.appcursos.components.menu.BottomMenuViewModel
 import com.example.appcursos.components.menu.TopMenu
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ClassesScreen(navController: NavController) {
+fun ClassesScreen(bottomMenuViewModel : BottomMenuViewModel, navController: NavController) {
     val classesViewModel = viewModel<ClassesViewModel>()
 
-    Surface(
+    Scaffold(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background,
+        bottomBar = { BottomAppBarComponent(bottomMenuViewModel, navController = navController) }
     ) {
         Column(
             modifier = Modifier

@@ -1,5 +1,6 @@
 package com.example.appcursos.screens.profile
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,8 +10,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,16 +31,27 @@ import com.example.appcursos.components.PhotoList
 import com.example.appcursos.components.PostList
 import com.example.appcursos.components.SetSystemBarsColors
 import com.example.appcursos.components.SwitchButton
+import com.example.appcursos.components.menu.BottomAppBarComponent
+import com.example.appcursos.components.menu.BottomMenuViewModel
 import com.example.appcursos.components.menu.TopMenu
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ProfileScreen(navController: NavController, logOutAction: ()->Unit) {
+fun ProfileScreen(bottomMenuViewModel : BottomMenuViewModel, navController: NavController, logOutAction: ()->Unit) {
+
     SetSystemBarsColors(
         setStatusBarColor = Color(0xFF5DB075),
         setNavigationBarColor = Color(0xFFFFFFFF)
     )
 
-    Body(navController, logOutAction)
+    Scaffold(
+        Modifier
+            .padding(start = 0.dp, end = 0.dp, top = 16.dp, bottom = 0.dp)
+            .background(Color(0xFF5DB075)),
+        bottomBar = { BottomAppBarComponent(bottomMenuViewModel, navController) }
+    ) {
+        Body(navController = navController, logOutAction)
+    }
 }
 
 @Composable

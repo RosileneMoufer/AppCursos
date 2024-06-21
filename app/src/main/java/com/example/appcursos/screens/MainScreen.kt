@@ -8,12 +8,21 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableIntState
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.appcursos.components.menu.BottomAppBarComponent
+import com.example.appcursos.components.menu.BottomMenuViewModel
 import com.example.appcursos.components.menu.ItemNavigationBar
 import com.example.appcursos.screens.classes.ClassesScreen
 import com.example.appcursos.screens.profile.ProfileScreen
@@ -23,29 +32,18 @@ import com.example.appcursos.screens.support.SupportScreen
 @Composable
 fun MainScreen(logOutAction: ()->Unit) {
     val navController = rememberNavController()
-    val itens = listOf<ItemNavigationBar>(
-        ItemNavigationBar("Cursos", Icons.Filled.Home, {navController.navigate("courses")}),
-        ItemNavigationBar("Perfil", Icons.Filled.Home, {navController.navigate("profile")}),
-        ItemNavigationBar("Suporte", Icons.Filled.Done, {navController.navigate("support")})
-    )
+    val bottomMenuViewModel = viewModel<BottomMenuViewModel>()
 
-    Scaffold(
-        bottomBar = { BottomAppBarComponent(itens) },
-        content = { padding ->
-            Box(modifier = Modifier.padding(padding)) {
-                NavBottomBarController(navController = navController, logOutAction)
-            }
-        },
-    )
+    NavBottomBarController(bottomMenuViewModel, navController, logOutAction)
 }
 
 @Composable
-fun NavBottomBarController(navController: NavHostController, logOutAction: ()->Unit) {
+fun NavBottomBarController(bottomMenuViewModel : BottomMenuViewModel, navController: NavHostController, logOutAction: ()->Unit) {
 
     NavHost(navController = navController, startDestination = "courses") {
-        composable("courses") { CoursesScreen(navController, logOutAction) }
-        composable("classes") { ClassesScreen(navController) }
-        composable("profile") { ProfileScreen(navController, logOutAction) }
+        composable("courses") { CoursesScreen(bottomMenuViewModel, navController, logOutAction) }
+        composable("classes") { ClassesScreen(bottomMenuViewModel, navController) }
+        composable("profile") { ProfileScreen(bottomMenuViewModel, navController, logOutAction) }
         composable("certificate") { CertificateScreen() }
         composable("support") { SupportScreen(navController) }
     }
