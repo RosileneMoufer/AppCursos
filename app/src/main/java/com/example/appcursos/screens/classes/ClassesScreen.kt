@@ -19,10 +19,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.appcursos.components.CheckBoxClasses
+import com.example.appcursos.components.ClassItem
+import com.example.appcursos.components.Classes
 import com.example.appcursos.components.PhotoList
 import com.example.appcursos.components.SearchInput
 import com.example.appcursos.components.menu.BottomAppBarComponent
@@ -53,30 +57,17 @@ fun ClassesScreen(bottomMenuViewModel : BottomMenuViewModel, navController: NavC
                 backgroundColor = Color(0xFFFFFFFF),
             )
             SearchInput()
-            Column(
-                modifier = Modifier.verticalScroll(rememberScrollState())
-            ) {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    // elemento aula... carrossel?d
-
-                    if (classesViewModel.completedCourse.value) Button(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(50))
-                            .fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(
-                            Color(0xFF5DB075)
-                        ),
-                        onClick = {
-                        navController.navigate("certificate")
-                    }) {
-                        Text("Certificado")
-                    } else CheckBoxClasses(viewModel = classesViewModel)
-                }
-
-                PhotoList()
-            }
+            Classes(classes = listOf(
+                ClassItem("Introdução à variáveis", "2m ago", "Aprenda a usar variáveis"),
+                ClassItem("Funções", "2m ago", "Aprenda a usar métodos e funções"),
+                ClassItem("Laços de repetição", "2m ago", "Aprenda a usar for, while, do while."),
+            ))
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun previewClasses(){
+    ClassesScreen(navController = rememberNavController())
 }
