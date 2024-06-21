@@ -2,7 +2,6 @@ package com.example.appcursos.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import com.example.appcursos.components.Card
 
 @Composable
 fun CourseList() {
@@ -21,10 +20,10 @@ fun CourseList() {
 */
 
     Column {
-        Card("Java", "8m ago","description: String")
-        Card("Python", "8m ago", "description: String")
-        Card("Go", "8m ago", "description: String")
-        Card("C#", "8m ago", "description: String")
+        Post("Java", "8m ago","description: String")
+        Post("Python", "8m ago", "description: String")
+        Post("Go", "8m ago", "description: String")
+        Post("C#", "8m ago", "description: String")
     }
 
 }

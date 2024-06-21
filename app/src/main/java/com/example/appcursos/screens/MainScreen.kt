@@ -33,7 +33,7 @@ fun NavBottomBarController(navController: NavHostController, logOutAction: ()->U
 
     NavHost(navController = navController, startDestination = "courses") {
         composable("courses") { CoursesScreen(navController, logOutAction) }
-        composable("classes") { ClassesScreen() }
+        composable("classes") { ClassesScreen(navController) }
         composable("profile") { ProfileScreen(navController, logOutAction) }
         composable("certificate") { CertificateScreen() }
         composable("support") { SupportScreen(navController) }

@@ -3,7 +3,6 @@ package com.example.appcursos.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import com.example.appcursos.components.Card
 
 @Composable
 fun PostList(navController: NavController) {
@@ -22,10 +21,10 @@ fun PostList(navController: NavController) {
 */
 
     Column {
-        Card("Java", "8m ago","description: String")
-        Card("Python", "8m ago", "description: String")
-        Card("Go", "8m ago", "description: String")
-        Card("C#", "8m ago", "description: String")
+        Post("Java", "8m ago","description: String", navController)
+        Post("Python", "8m ago", "description: String", navController)
+        Post("Go", "8m ago", "description: String", navController)
+        Post("C#", "8m ago", "description: String", navController)
     }
 
 }
