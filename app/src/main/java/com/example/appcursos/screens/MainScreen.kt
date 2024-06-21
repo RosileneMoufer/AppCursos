@@ -11,6 +11,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.appcursos.components.menu.BottomAppBarComponent
+import com.example.appcursos.screens.classes.ClassesScreen
+import com.example.appcursos.screens.profile.ProfileScreen
 import com.example.appcursos.screens.support.SupportScreen
 
 @OptIn(ExperimentalMaterial3Api::class)

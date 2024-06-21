@@ -1,4 +1,4 @@
-package com.example.appcursos.screens
+package com.example.appcursos.screens.classes
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.appcursos.components.PhotoList
 import com.example.appcursos.components.SearchInput
@@ -18,11 +19,12 @@ import com.example.appcursos.components.menu.TopMenu
 
 @Composable
 fun ClassesScreen(navController: NavController) {
+    val classesViewModel = viewModel<ClassesViewModel>()
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background,
-
-        ) {
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -41,6 +43,7 @@ fun ClassesScreen(navController: NavController) {
             Column(
                 modifier = Modifier.verticalScroll(rememberScrollState())
             ) {
+
                 PhotoList()
             }
         }
