@@ -37,7 +37,7 @@ fun Nav(){
             SignUpScreen(navController)
         }
         composable(route="main"){
-            MainScreen({navController.popBackStack()})
+            MainScreen { navController.popBackStack() }
         }
     }
 }

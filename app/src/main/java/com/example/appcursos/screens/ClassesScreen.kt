@@ -11,12 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.appcursos.components.PhotoList
 import com.example.appcursos.components.SearchInput
 import com.example.appcursos.components.menu.TopMenu
 
 @Composable
-fun ClassesScreen() {
+fun ClassesScreen(navController: NavController) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background,
@@ -30,10 +31,11 @@ fun ClassesScreen() {
             TopMenu(
                 title = "Aulas",
                 titleButtonLeft = "Voltar",
+                actionButtonLeft = { navController.navigate("courses") },
                 titleButtonRight = "Filtro",
                 actionButtonColor = Color(0xFF5DB075),
                 titleColor = Color(0XFF000000),
-                backgroundColor = Color(0xFFFFFFFF)
+                backgroundColor = Color(0xFFFFFFFF),
             )
             SearchInput()
             Column(

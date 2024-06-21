@@ -4,22 +4,18 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,31 +31,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import com.example.appcursos.components.CourseList
+import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import com.example.appcursos.components.ImageProfile
 import com.example.appcursos.components.PhotoList
-import com.example.appcursos.components.PostList
 import com.example.appcursos.components.SetSystemBarsColors
+import com.example.appcursos.components.SwitchButton
+import com.example.appcursos.components.SwitchTextButton
 import com.example.appcursos.components.menu.TopMenu
 
 @Composable
-fun ProfileScreen(navController:NavHostController, logOutAction: ()->Unit) {
+fun ProfileScreen(navController: NavController, logOutAction: ()->Unit) {
     SetSystemBarsColors(
         setStatusBarColor = Color(0xFF5DB075),
         setNavigationBarColor = Color(0xFFFFFFFF)
     )
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = Color(0xFFFFFFFF)
-    ) {
-        Body(navController, logOutAction)
-    }
+    Body(logOutAction)
 }
 
-
 @Composable
-fun Body(navController: NavHostController, logOutAction: ()->Unit) {
+fun Body( logOutAction: ()->Unit) {
     var isPostsActive by remember { mutableStateOf(true) }
 
     Column(
@@ -69,8 +61,11 @@ fun Body(navController: NavHostController, logOutAction: ()->Unit) {
     ) {
         Column(
             modifier = Modifier
+                .fillMaxWidth()
                 .background(Color(0xFF5DB075))
                 .padding(16.dp, 0.dp)
+                .zIndex(1F),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             TopMenu(
                 title = "Profile",
@@ -81,33 +76,14 @@ fun Body(navController: NavHostController, logOutAction: ()->Unit) {
                 titleColor = Color(0xFFFFFFFF),
                 backgroundColor = Color(0xFF5DB075)
             )
-            Box(
-                modifier = Modifier
-                    .background(Color(0xFF5DB075))
-                    .aspectRatio(2.2F),
-                contentAlignment = Alignment.Center
-            ) {
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(50))
-                        .background(Color.Gray)
-                        .border(
-                            border = BorderStroke(8.dp, Color.White),
-                            shape = RoundedCornerShape(50)
-                        )
-                        .width(160.dp)
-                        .height(160.dp)
-                    //.align(Alignment.BottomCenter)
-                ) {
-                    // image
-                }
-            }
+            ImageProfile()
         }
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color(0xFFFFFFFF))
-                .padding(16.dp),
+                .padding(start = 16.dp, end = 16.dp, top = 48.dp, bottom = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
@@ -133,69 +109,17 @@ fun Body(navController: NavHostController, logOutAction: ()->Unit) {
                 )
             )
             Spacer(modifier = Modifier.height(32.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(50))
-                    .border(
-                        border = BorderStroke(1.dp, Color(0xFFBDBDBD)),
-                        shape = RoundedCornerShape(50)
-                    )
-                    .background(Color(0xFFF6F6F6))
-            ) {
-                Button(
-                    onClick = { isPostsActive = true },
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(50))
-                        .fillMaxWidth()
-                        .weight(1F),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = if (isPostsActive) Color(0xFFFFFFFF) else Color(0xFFF6F6F6)
-                    )
-                ) {
-                    Text(
-                        text = "Posts",
-                        style = TextStyle(
-                            color = if (isPostsActive) Color(0xFF5DB075) else Color(0xFFBDBDBD),
-                            fontWeight = FontWeight.W600,
-                            fontSize = 16.sp,
-                            lineHeight = 20.sp,
-                            textAlign = TextAlign.Center
-                        ),
-                        modifier = Modifier.padding(4.dp)
-                    )
-                }
-                Button(
-                    onClick = { isPostsActive = false },
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(50))
-                        .fillMaxWidth()
-                        .weight(1F),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = if (isPostsActive) Color(0xFFF6F6F6) else Color(0xFFFFFFFF)
-                    )
-                ) {
-                    Text(
-                        text = "Photos",
-                        style = TextStyle(
-                            color = if (isPostsActive) Color(0xFFBDBDBD) else Color(0xFF5DB075),
-                            fontWeight = FontWeight.W600,
-                            fontSize = 16.sp,
-                            lineHeight = 20.sp,
-                            textAlign = TextAlign.Center
-                        ),
-                        modifier = Modifier.padding(4.dp)
-                    )
-                }
-            }
+
+            SwitchButton({isPostsActive = true}, {isPostsActive = false}, isPostsActive)
+
             Spacer(modifier = Modifier.height(16.dp))
 
             if (isPostsActive) {
-                CourseList()
+                //PostList(navController)
+                PhotoList()
             } else {
                 PhotoList()
             }
         }
     }
 }
-
