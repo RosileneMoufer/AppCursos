@@ -3,16 +3,11 @@ package com.example.appcursos.components
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -20,14 +15,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchInput() {
-    var searchOutlinedTextField by remember { mutableStateOf("") }
+fun SearchInput(text: MutableState<String>) {
 
     OutlinedTextField(
-        value = searchOutlinedTextField,
-        onValueChange = {searchOutlinedTextField = it},
+        value = text.value,
+        onValueChange = {text.value = it},
         placeholder = { Text(text = "Search") },
         shape = RoundedCornerShape(50),
         colors = OutlinedTextFieldDefaults.colors(

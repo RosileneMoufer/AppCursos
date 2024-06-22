@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 
 class ProfileViewModel:ViewModel() {
     private val _isPostsActive = mutableStateOf(true)
-    private val _isModalOpen = mutableStateOf(true)
+    private val _isModalOpen = mutableStateOf(false)
 
     var isPostsActive = _isPostsActive
     var isModalOpen = _isModalOpen

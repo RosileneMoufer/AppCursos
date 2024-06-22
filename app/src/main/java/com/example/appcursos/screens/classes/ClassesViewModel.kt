@@ -3,11 +3,13 @@ package com.example.appcursos.screens.classes
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.appcursos.components.ClassItem
 
 open class ClassesViewModel : ViewModel() {
-    private val _completedCourse = mutableStateOf(false)
-    private val _completedClasses = mutableStateOf(arrayOf(false, false, false))
-
-    var completedCourse : MutableState<Boolean> = _completedCourse
-    var completedClasses : MutableState<Array<Boolean>> = _completedClasses
+    var classes = mutableListOf(
+        ClassItem("Introdução à variáveis", "2m ago", "Aprenda a usar variáveis"),
+        ClassItem("Funções", "2m ago", "Aprenda a usar métodos e funções"),
+        ClassItem("Laços de repetição", "2m ago", "Aprenda a usar for, while, do while.")
+    )
+    var textFromTextField = mutableStateOf("")
 }

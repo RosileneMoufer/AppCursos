@@ -13,7 +13,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.appcursos.components.BottomSheet
+import com.example.appcursos.components.LoggoutBottomSheet
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -45,12 +44,18 @@ fun ProfileScreen(bottomMenuViewModel : BottomMenuViewModel, navController: NavC
     )
 
     Scaffold(
-        Modifier
-            .padding(start = 0.dp, end = 0.dp, top = 16.dp, bottom = 0.dp)
-            .background(Color(0xFF5DB075)),
         bottomBar = { BottomAppBarComponent(bottomMenuViewModel, navController) }
     ) {
-        Body(navController = navController, logOutAction)
+        Column(
+            modifier = Modifier
+                .background(Color(0xFF5DB075))
+                .padding(
+                    top = it.calculateTopPadding(),
+                    bottom = it.calculateBottomPadding()
+                )
+        ) {
+            Body(navController = navController, logOutAction)
+        }
     }
 }
 
@@ -67,7 +72,7 @@ fun Body(navController: NavController, logOutAction: ()->Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color(0xFF5DB075))
-                .padding(16.dp, 0.dp)
+                .padding(horizontal = 16.dp)
                 .zIndex(1F),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -75,7 +80,7 @@ fun Body(navController: NavController, logOutAction: ()->Unit) {
                 title = "Profile",
                 titleButtonLeft = "Settings",
                 titleButtonRight = "Logout",
-                actionButtonRight = logOutAction,
+                actionButtonRight = {viewModel.isModalOpen.value = true},
                 actionButtonColor = Color(0xFFFFFFFF),
                 titleColor = Color(0xFFFFFFFF),
                 backgroundColor = Color(0xFF5DB075)
@@ -123,12 +128,11 @@ fun Body(navController: NavController, logOutAction: ()->Unit) {
 
             if (viewModel.isPostsActive.value) {
                 PostList(navController)
-                //PhotoList()
             } else {
                 PhotoList()
             }
         }
         if(viewModel.isModalOpen.value)
-            BottomSheet({viewModel.isModalOpen.value = false})
+            LoggoutBottomSheet(logOutAction, {viewModel.isModalOpen.value = false})
     }
 }

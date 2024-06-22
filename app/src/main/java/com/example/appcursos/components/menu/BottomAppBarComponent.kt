@@ -3,6 +3,7 @@ package com.example.appcursos.components.menu
 import androidx.compose.foundation.background
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Home
@@ -32,8 +33,8 @@ fun BottomAppBarComponent(bottomMenuViewModel : BottomMenuViewModel, navControll
 
     val items = listOf(
         ItemNavigationBar("Cursos", Icons.Filled.Home) { navController.navigate("courses") },
-        ItemNavigationBar("Perfil", Icons.Filled.Home) { navController.navigate("profile") },
-        ItemNavigationBar("Suporte", Icons.Filled.Done) { navController.navigate("support") }
+        ItemNavigationBar("Perfil", Icons.Filled.AccountCircle) { navController.navigate("profile") },
+        ItemNavigationBar("Suporte", Icons.Filled.Build) { navController.navigate("support") }
     )
 
     NavigationBar(containerColor = Color.White, contentColor = Color(0xFF5DB075)) {

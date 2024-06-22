@@ -4,9 +4,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -60,20 +62,81 @@ fun SupportScreen(navController:NavHostController, modifier: Modifier = Modifier
     val supportViewModel = viewModel<SupportViewModel>()
     Scaffold(
         //topBar = { TopBarSupport(navController) },
-        Modifier.background(Color.White).padding(16.dp),
-        topBar = { TopMenu(
-            title = "Suporte",
-            titleButtonLeft = "Back",
-            actionButtonLeft = { navController.popBackStack() },
-            titleButtonRight = "Filter",
-            actionButtonColor = primary,
-            titleColor = Color.Black,
-            backgroundColor = Color.White
-        ) },
-        bottomBar = { ChatTextField(
-            {supportViewModel.addMessage(it)})},
+        Modifier
+            .background(Color.White)
+            .imePadding(),
+        bottomBar = {
+            ChatTextField(
+                {supportViewModel.addMessage(it)},
+                Modifier.padding(horizontal = 16.dp)
+            ) },
     ) {
-        Body(messages = supportViewModel.messages, Modifier.padding(it))
+        Column(
+            Modifier.padding(
+                end = 16.dp,
+                start = 16.dp,
+                top = it.calculateTopPadding(),
+                bottom = it.calculateBottomPadding()
+            )
+        ) {
+            TopMenu(
+                title = "Suporte",
+                titleButtonLeft = "Back",
+                actionButtonLeft = { navController.popBackStack() },
+                titleButtonRight = "Filter",
+                actionButtonColor = primary,
+                titleColor = Color.Black,
+                backgroundColor = Color.White
+            )
+            LazyColumn(
+                reverseLayout = true
+            ){
+                items(items = supportViewModel.messages, itemContent = {message ->
+                    when(message.sender){
+                        UserType.ME -> {
+                            Row(
+                                horizontalArrangement = Arrangement.End,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = 10.dp)
+                            ) {
+                                Text(
+                                    text = message.message,
+                                    color = Color.White,
+                                    fontFamily = FontFamily(Font(R.font.inter)),
+                                    fontSize = 14.sp,
+                                    modifier = Modifier
+                                        .clip(RoundedCornerShape(10.dp))
+                                        .background(primary)
+                                        .padding(10.dp)
+                                        .width(200.dp)
+                                )
+                            }
+                        }
+                        UserType.SUPPORT -> {
+                            Row(
+                                horizontalArrangement = Arrangement.Start,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = 10.dp)
+                            ){
+                                Text(
+                                    text = message.message,
+                                    fontFamily = FontFamily(Font(R.font.inter)),
+                                    fontSize = 14.sp,
+                                    modifier = Modifier
+                                        .clip(RoundedCornerShape(10.dp))
+                                        .background(gray1)
+                                        .padding(10.dp)
+                                        .width(200.dp)
+                                )
+                            }
+                        }
+                    }
+                })
+            }
+        }
+
     }
 }
 
@@ -130,7 +193,7 @@ private fun Body(messages:MutableList<Message>, modifier: Modifier = Modifier){
 }
 
 @Composable
-private fun ChatTextField(action: (String)->Unit, ){
+private fun ChatTextField(action: (String)->Unit, modifier: Modifier = Modifier){
     var message by remember { mutableStateOf("") }
 
     OutlinedTextField(
@@ -167,8 +230,9 @@ private fun ChatTextField(action: (String)->Unit, ){
             action(message)
             message = ""
         }),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
+            .navigationBarsPadding()
     )
 }
 
