@@ -13,25 +13,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,7 +41,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -68,7 +64,7 @@ fun SupportScreen(navController:NavHostController, modifier: Modifier = Modifier
         bottomBar = {
             ChatTextField(
                 {supportViewModel.addMessage(it)},
-                Modifier.padding(horizontal = 16.dp)
+                Modifier.padding(start = 16.dp, end = 16.dp, bottom = 10.dp)
             ) },
     ) {
         Column(
@@ -88,61 +84,16 @@ fun SupportScreen(navController:NavHostController, modifier: Modifier = Modifier
                 titleColor = Color.Black,
                 backgroundColor = Color.White
             )
-            LazyColumn(
-                reverseLayout = true
-            ){
-                items(items = supportViewModel.messages, itemContent = {message ->
-                    when(message.sender){
-                        UserType.ME -> {
-                            Row(
-                                horizontalArrangement = Arrangement.End,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(bottom = 10.dp)
-                            ) {
-                                Text(
-                                    text = message.message,
-                                    color = Color.White,
-                                    fontFamily = FontFamily(Font(R.font.inter)),
-                                    fontSize = 14.sp,
-                                    modifier = Modifier
-                                        .clip(RoundedCornerShape(10.dp))
-                                        .background(primary)
-                                        .padding(10.dp)
-                                        .width(200.dp)
-                                )
-                            }
-                        }
-                        UserType.SUPPORT -> {
-                            Row(
-                                horizontalArrangement = Arrangement.Start,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(bottom = 10.dp)
-                            ){
-                                Text(
-                                    text = message.message,
-                                    fontFamily = FontFamily(Font(R.font.inter)),
-                                    fontSize = 14.sp,
-                                    modifier = Modifier
-                                        .clip(RoundedCornerShape(10.dp))
-                                        .background(gray1)
-                                        .padding(10.dp)
-                                        .width(200.dp)
-                                )
-                            }
-                        }
-                    }
-                })
-            }
+            Body(messages = supportViewModel.messages)
         }
-
     }
 }
 
 @Composable
-private fun Body(messages:MutableList<Message>, modifier: Modifier = Modifier){
+private fun Body(messages:SnapshotStateList<Message>, modifier: Modifier = Modifier){
     LazyColumn(
+        reverseLayout = true,
+        state = rememberLazyListState(),
         modifier = modifier
             .padding(top = 8.dp)
     ) {
@@ -205,6 +156,7 @@ private fun ChatTextField(action: (String)->Unit, modifier: Modifier = Modifier)
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
+                    .padding(10.dp)
                     .size(36.dp)
                     .clip(CircleShape)
                     .background(primary)
