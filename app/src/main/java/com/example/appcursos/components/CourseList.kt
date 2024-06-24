@@ -2,28 +2,22 @@ package com.example.appcursos.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
+import com.example.appcursos.R
 
 @Composable
-fun CourseList() {
-    /*
-    if (list.isEmpty()) {
-        Text(text = "Ainda não há nada")
-    } else {
-        list.let {
-            LazyColumn {
-                items(it) {
-                    Card("Java", "8m ago","description: String")
-                }
-            }
-        }
-    }
-*/
+fun CourseList(navController: NavController) {
+    val listOfPost = listOf(
+        ItemPostList("Java", R.drawable.java_logo, "8m ago", "Lorem Ipsum is simply dummy text of the printing and typesetting industry."),
+        ItemPostList("Python", R.drawable.python_logo, "8m ago", "Lorem Ipsum is simply dummy text of the printing and typesetting industry."),
+        ItemPostList("Kotlin", R.drawable.kotlin_logo, "8m ago", "Lorem Ipsum is simply dummy text of the printing and typesetting industry."),
+        ItemPostList("C#", R.drawable.csharp_logo, "8m ago", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.")
+    )
 
     Column {
-        Post("Java", "8m ago","description: String")
-        Post("Python", "8m ago", "description: String")
-        Post("Go", "8m ago", "description: String")
-        Post("C#", "8m ago", "description: String")
+        for (it in listOfPost) {
+            Post(it.title, it.idImage, it.date, it.description, navController)
+        }
     }
 
 }

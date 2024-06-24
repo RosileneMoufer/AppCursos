@@ -1,7 +1,8 @@
 package com.example.appcursos.components
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,23 +13,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Post(title: String, date: String, description: String) {
+fun Photo(title: String, @DrawableRes idImage: Int, date: String, description: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(0.dp, 8.dp)
     ) {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(1f)
-            .clip(RoundedCornerShape(8.dp))
-            .background(Color(0xFFF6F6F6)))
+        Image(
+            painter = painterResource(id = idImage),
+            contentDescription = title,
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f)
+                .clip(RoundedCornerShape(8.dp))
+                .background(Color(0xFFF6F6F6))
+        )
         Text(
             title,
             style = TextStyle(

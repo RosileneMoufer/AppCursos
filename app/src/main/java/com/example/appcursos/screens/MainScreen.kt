@@ -1,6 +1,5 @@
 package com.example.appcursos.screens
 
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -13,7 +12,6 @@ import com.example.appcursos.screens.courses.CoursesScreen
 import com.example.appcursos.screens.profile.ProfileScreen
 import com.example.appcursos.screens.support.SupportScreen
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(logOutAction: ()->Unit) {
     val navController = rememberNavController()

@@ -1,9 +1,10 @@
 package com.example.appcursos.components
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -26,7 +28,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun Post(title: String, date: String, description: String, navController: NavController) {
+fun Post(
+    title: String,
+    @DrawableRes idImage: Int,
+    date: String,
+    description: String,
+    navController: NavController
+) {
     Row(
         modifier = Modifier
             .padding(0.dp, 8.dp)
@@ -36,12 +44,14 @@ fun Post(title: String, date: String, description: String, navController: NavCon
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.Top
     ) {
-        Box(
+        Image(
+            painter = painterResource(id = idImage),
+            contentDescription = title,
             modifier = Modifier
                 .width(50.dp)
                 .height(50.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .background(Color(0xFFE8E8E8)),
+                .background(Color(0xFFE8E8E8))
         )
         Column(
             modifier = Modifier
